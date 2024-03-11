@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# ☀️ SunSmart App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SunSmart is a web application built with Vite, React, and TypeScript that provides information and tips on sun safety.
+Whether you're planning a day outdoors or simply want to learn more about protecting yourself from the sun's harmful
+rays, SunSmart has you covered.
 
-Currently, two official plugins are available:
+### URL - [SunSmart Live Website](https://ahabara.github.io/sunsafe/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **UV Index Tracking**: Stay informed about the UV index in your area and receive recommendations for sun protection
+  based on the current UV levels.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Sun Safety Guidelines**: Access comprehensive guidelines and tips for staying safe in the sun, including information
+  on sunscreen application, appropriate clothing, and shade seeking.
 
-- Configure the top-level `parserOptions` property like this:
+- **Skin Cancer Awareness**: Learn about the risks associated with sun exposure and the importance of regular skin
+  checks for detecting skin cancer early.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Installation
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Ahabara/sunsafe.git
+
+2. Install packages in folder:
+
+   ```bash
+   npm install
+
+3. Run application:
+
+   ```bash
+   npm run dev
+
+## Acknowledgments
+
+I'd like to thank my team for their work. Mingzhi on the Back End, Erman our data Guru and Aneri, our everything person!
