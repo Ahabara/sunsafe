@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <div>
-            <footer className="footer p-10 bg-neutral text-neutral-content overflow-x-clip	">
+            <footer className="footer p-10 bg-orange-200 text-slate-700 text-neutral-content overflow-x-clip	">
                 <aside>
                     <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                          fillRule="evenodd" clipRule="evenodd" className="fill-current">
@@ -12,6 +12,12 @@ const Footer = () => {
                 </aside>
                 <nav>
                     <h6 className="footer-title">Social</h6>
+                    <p>
+                        Photos provided by <a href="https://www.freepik.com"
+                                              className="text-blue-500 underline hover:text-blue-700">Freepik</a> and <a
+                        href="https://www.unsplash.com"
+                        className="text-blue-500 underline hover:text-blue-700">Unsplash</a>
+                    </p>
                     <div className="grid grid-flow-col gap-4">
                         <a>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
