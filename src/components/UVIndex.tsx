@@ -1,178 +1,178 @@
 // @ts-nocheck
 
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Typography,
-} from "@material-tailwind/react";
+import {Card, CardBody, CardHeader, Typography,} from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 import {Square3Stack3DIcon} from "@heroicons/react/24/outline";
-import {ApexOptions} from "apexcharts";
-import {useState} from "react";
+import {useEffect, useMemo, useState} from "react";
+import {Skeleton} from "./Skeleton";
 
 
 export default function UVIndex({time, uv}) {
 
     const [isChecked, setIsChecked] = useState(false);
+    // const [uvIndex, setUVindex] = useState([])
 
-
-    const options: ApexOptions = {
-        type: "bar",
-        height: 240,
-        series: [
-            {
-                name: "UV",
-                data: uv,
-            },
-        ],
-        options: {
-            chart: {
-                toolbar: {
-                    show: false,
-                },
-            },
-            title: {
-                show: "",
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            colors: ["#020617"],
-            stroke: {
-                lineCap: "round",
-                curve: "smooth",
-            },
-            markers: {
-                size: 0,
-            },
-            xaxis: {
-                axisTicks: {
-                    show: false,
-                },
-                axisBorder: {
-                    show: false,
-                },
-                labels: {
-                    style: {
-                        colors: "#616161",
-                        fontSize: "12px",
-                        fontFamily: "inherit",
-                        fontWeight: 400,
+    const options = useMemo(() => {
+            return {
+                type: "bar",
+                height: 240,
+                series: [
+                    {
+                        name: "UV",
+                        data: uv,
                     },
-                },
-                categories: time,
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: "#616161",
-                        fontSize: "12px",
-                        fontFamily: "inherit",
-                        fontWeight: 400,
+                ],
+                options: {
+                    chart: {
+                        toolbar: {
+                            show: false,
+                        },
                     },
-                },
-            },
-            grid: {
-                show: true,
-                borderColor: "#dddddd",
-                strokeDashArray: 5,
-                xaxis: {
-                    lines: {
+                    title: {
+                        show: "",
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    colors: ["#020617"],
+                    stroke: {
+                        lineCap: "round",
+                        curve: "smooth",
+                    },
+                    markers: {
+                        size: 0,
+                    },
+                    xaxis: {
+                        axisTicks: {
+                            show: false,
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                        labels: {
+                            style: {
+                                colors: "#616161",
+                                fontSize: "12px",
+                                fontFamily: "inherit",
+                                fontWeight: 400,
+                            },
+                        },
+                        categories: time,
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                colors: "#616161",
+                                fontSize: "12px",
+                                fontFamily: "inherit",
+                                fontWeight: 400,
+                            },
+                        },
+                    },
+                    grid: {
                         show: true,
+                        borderColor: "#dddddd",
+                        strokeDashArray: 5,
+                        xaxis: {
+                            lines: {
+                                show: true,
+                            },
+                        },
+                        padding: {
+                            top: 5,
+                            right: 20,
+                        },
+                    },
+                    fill: {
+                        opacity: 0.8,
+                    },
+                    tooltip: {
+                        theme: "dark",
                     },
                 },
-                padding: {
-                    top: 5,
-                    right: 20,
+            }
+        }
+        , [time, uv])
+    const optionsLine = useMemo(() => {
+        return {
+            type: "line",
+            height: 240,
+            series: [
+                {
+                    name: "UV",
+                    data: uv,
                 },
-            },
-            fill: {
-                opacity: 0.8,
-            },
-            tooltip: {
-                theme: "dark",
-            },
-        },
-    }
-    const optionsLine: ApexOptions = {
-        type: "line",
-        height: 240,
-        series: [
-            {
-                name: "UV",
-                data: uv,
-            },
-        ],
-        options: {
-            chart: {
-                toolbar: {
-                    show: false,
-                },
-            },
-            title: {
-                show: "",
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            colors: ["#020617"],
-            stroke: {
-                lineCap: "round",
-                curve: "smooth",
-            },
-            markers: {
-                size: 0,
-            },
-            xaxis: {
-                axisTicks: {
-                    show: false,
-                },
-                axisBorder: {
-                    show: false,
-                },
-                labels: {
-                    style: {
-                        colors: "#616161",
-                        fontSize: "12px",
-                        fontFamily: "inherit",
-                        fontWeight: 400,
+            ],
+            options: {
+                chart: {
+                    toolbar: {
+                        show: false,
                     },
                 },
-                categories: time,
-            },
-            yaxis: {
-                labels: {
-                    style: {
-                        colors: "#616161",
-                        fontSize: "12px",
-                        fontFamily: "inherit",
-                        fontWeight: 400,
-                    },
+                title: {
+                    show: "",
                 },
-            },
-            grid: {
-                show: true,
-                borderColor: "#dddddd",
-                strokeDashArray: 5,
+                dataLabels: {
+                    enabled: false,
+                },
+                colors: ["#020617"],
+                stroke: {
+                    lineCap: "round",
+                    curve: "smooth",
+                },
+                markers: {
+                    size: 0,
+                },
                 xaxis: {
-                    lines: {
-                        show: true,
+                    axisTicks: {
+                        show: false,
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    labels: {
+                        style: {
+                            colors: "#616161",
+                            fontSize: "12px",
+                            fontFamily: "inherit",
+                            fontWeight: 400,
+                        },
+                    },
+                    categories: time,
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: "#616161",
+                            fontSize: "12px",
+                            fontFamily: "inherit",
+                            fontWeight: 400,
+                        },
                     },
                 },
-                padding: {
-                    top: 5,
-                    right: 20,
+                grid: {
+                    show: true,
+                    borderColor: "#dddddd",
+                    strokeDashArray: 5,
+                    xaxis: {
+                        lines: {
+                            show: true,
+                        },
+                    },
+                    padding: {
+                        top: 5,
+                        right: 20,
+                    },
+                },
+                fill: {
+                    opacity: 0.8,
+                },
+                tooltip: {
+                    theme: "dark",
                 },
             },
-            fill: {
-                opacity: 0.8,
-            },
-            tooltip: {
-                theme: "dark",
-            },
-        },
-    }
+        }
+    }, [time, uv])
 
     const [chartConfig, setChartConfig] = useState<any>(optionsLine);
 
@@ -181,18 +181,25 @@ export default function UVIndex({time, uv}) {
         isChecked ? setChartConfig(optionsLine) : setChartConfig(options)
     };
 
+    useEffect(() => {
+        if (uv.length > 0 && isChecked) {
+            setChartConfig(options);
+        } else {
+            setChartConfig(optionsLine);
+        }
+    }, [uv, isChecked, options, optionsLine]);
+
 
     return (
         <div>
             <div className={"flex justify-center py-8 gap-4"}>
                 <p>Line</p>
-                {time}
                 <input type="checkbox" checked={isChecked}
                        onChange={handleCheckboxChange}
                        className="toggle toggle-info"/>
                 <p>Bar</p>
             </div>
-            <Card placeholder={""}
+            {uv.length > 0 ? <Card placeholder={""}
             >
                 <CardHeader
                     placeholder={""}
@@ -202,7 +209,7 @@ export default function UVIndex({time, uv}) {
                     color="transparent"
                     className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
                 >
-                    <div className="w-max rounded-lg bg-gray-900 p-5 text-white">
+                    <div className="m-3 w-max rounded-lg bg-gray-900 p-5 text-white">
                         <Square3Stack3DIcon className="h-6 w-6"/>
                     </div>
                     <div>
@@ -216,14 +223,20 @@ export default function UVIndex({time, uv}) {
                             className="max-w-sm font-normal"
                             placeholder={""}
                         >
-                            Please dress accordingly and don't forget to slip slop slap!
+
+                            {time.length > 0 ? <p>Please dress accordingly and don't forget to slip, slop, slap!</p> :
+                                <p>Please enter a city to view visualisation</p>}
                         </Typography>
                     </div>
                 </CardHeader>
-                <CardBody className="px-2 pb-0" placeholder={""}>
-                    <Chart {...chartConfig} />
-                </CardBody>
-            </Card>
+                {time.length > 0 ? <CardBody className="px-2 pb-0" placeholder={""}>
+                        <Chart {...chartConfig} />
+                    </CardBody>
+                    : <p className={"text-center pb-32"}> No data to present</p>
+                }
+
+            </Card> : <Skeleton/>}
+
         </div>
 
     );
