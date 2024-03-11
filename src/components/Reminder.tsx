@@ -55,7 +55,7 @@ const Reminder = ({coOrds}) => {
             alert('Please enter a valid email.');
             return;
         }
-        alert(email)
+        
         // Create reminder object
         const reminderData = {
             "email": email.trim().toString(),
@@ -65,13 +65,7 @@ const Reminder = ({coOrds}) => {
             "lon": "-122.4194",
         };
 
-        const test = {
-            "email": "example@gmail.com",
-            "startTime": 1709955570,
-            "endTime": 1809648787,
-            "lat": "37.7749",
-            "lon": "-122.4194"
-        }
+
         console.log("line 68", reminderData)
         try {
             const response = await fetch('https://fourtitude.me/reminder/create', {
@@ -85,38 +79,58 @@ const Reminder = ({coOrds}) => {
             if (!response.ok) {
                 throw new Error('Failed to create reminder.');
             }
-
-            setEmail('');
-            setValidEmail(true);
-
-            alert('Reminder created successfully!');
+            const data = await response.json();
+            alert(data.msg);
         } catch (error) {
             console.error('Error creating reminder:', error.message);
-            alert('Failed to create reminder. Please try again later.');
+            return alert('Failed to create reminder. Please try again later.');
         }
     };
 
     const handleViewPrevious = async () => {
         if (!validEmail) return alert("Enter a valid email!")
         setIsLoading(true);
-        const toSend = send ? '1' : '0'
-        return alert(toSend)
-        try {
-            const response = await fetch(`https://fourtitude.me/reminder/get/${email}&${toSend}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch reminders.');
-            }
-            alert(`https://fourtitude.me/reminder/get/${email}&${toSend}`)
-            const data = await response.json();
-            if (data === null) return alert("Null")
-            setReminders(JSON.parse(data.data));
+        const toSend = send ? '1' : '0';
+        //https://fourtitude.me/reminder/get/example@gmail.com&0
+        //https://fourtitude.me/reminder/get/example@gmail.com&0
+        const url = `https://fourtitude.me/reminder/get/${email}&0`
+        // const response = await fetch("https://fourtitude.me/reminder/get/example@gmail.com&0")
+        const response = await fetch(url);
+        console.log(`https://fourtitude.me/reminder/get/${email}&${toSend}`)
+        if (!response.ok) {
             setIsLoading(false);
-        } catch (error) {
-            alert(error)
-            console.error('Error fetching reminders:', error.message);
-            setIsLoading(false);
+            alert('Failed to fetch reminders.');
         }
+        // alert(`https://fourtitude.me/reminder/get/${email}&${toSend}`)
+        const data = await response.json();
+        if (data === null) return alert("No Data To Present")
+        console.log(data)
+        setReminders(JSON.parse(data.data));
+        setIsLoading(false);
     };
+
+    let reminderContent;
+    if (isLoading) {
+        reminderContent = <Skeleton/>;
+    } else if (reminders == null) {
+        reminderContent = <p>No reminders found!</p>;
+    } else if (reminders.length === 0) {
+        reminderContent = <p>No reminders found!</p>;
+    } else {
+        reminderContent = (
+            <div>
+                <p>Your Reminders: </p>
+                <ul className="py-4">
+                    {reminders.map((reminder, index) => (
+                        <li key={index}>
+                            <ReminderView i={index} start={reminder.startTime} end={reminder.endTime}/>
+                            {/* Display reminder information */}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
 
 
     return (
@@ -124,7 +138,7 @@ const Reminder = ({coOrds}) => {
 
             <h1 className={"py-8 text-4xl"}>Need a reminder?</h1>
             <div className={"md:grid grid-cols-2"}>
-                <form className="max-w-sm" onSubmit={handleSubmit}>
+                <div className="max-w-sm">
                     <div className="mb-5">
                         <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Your
                             email</label>
@@ -135,7 +149,6 @@ const Reminder = ({coOrds}) => {
                                    setEmail(e.target.value);
                                    setValidEmail(validateEmail(e.target.value));
                                }} required/>
-                        {/*<p>Whoopsy! That doesn't look like a valid email</p>*/}
                         {!validEmail && email.length > 0 &&
                             <p className="mt-1 text-xs text-red-500">Whoopsy! That doesn't look like a valid email.</p>}
                     </div>
@@ -147,7 +160,7 @@ const Reminder = ({coOrds}) => {
                                 checked={send}
                                 onChange={() => setSend(!send)}
                                 className="h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-                                required
+
                             />
 
                         </div>
@@ -156,6 +169,7 @@ const Reminder = ({coOrds}) => {
                             me!</label>
                     </div>
                     <button type="submit"
+                            onClick={handleSubmit}
                             className="w-full rounded-lg bg-blue-700 px-5 text-center text-sm font-medium text-white py-2.5 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 sm:w-auto dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
                     </button>
                     <button
@@ -163,26 +177,10 @@ const Reminder = ({coOrds}) => {
                         className="ml-4 w-full rounded-lg bg-blue-50 px-5 text-center text-sm font-medium text-gray-800 py-2.5 hover:bg-blue-300 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-blue-200 sm:w-auto dark:hover:bg-blue-200 dark:focus:ring-blue-200">View
                         Previous
                     </button>
-                </form>
+                </div>
                 <div className={"py-12 md:py-0"}>
                     <div>
-                        {isLoading ? (
-                            <Skeleton/>
-                        ) : (reminders == null || reminders.length === 0) ? (
-                            <p>{"No reminders Found!"}</p>
-                        ) : (
-                            <div>
-                                <p>Your Reminders: </p>
-                                <ul className="py-4">
-                                    {reminders.map((reminder, index) => (
-                                        <li key={index}>
-                                            <ReminderView i={index} start={reminder.startTime} end={reminder.endTime}/>
-                                            {/* Display reminder information */}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                        {reminderContent}
                     </div>
 
                 </div>
