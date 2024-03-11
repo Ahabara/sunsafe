@@ -1,9 +1,7 @@
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Nav() {
 
-
-    const navigate = useNavigate();
 
     return (
         <nav className={"pl-8 pr-16"}>
@@ -20,17 +18,19 @@ function Nav() {
                         <ul tabIndex={0}
                             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
-                                <li><a>🧴⛅️ About</a></li>
-                                <li><a> 👭👫 Meet the Team</a></li>
+                                <li><Link to={"/sunsafe/app"}> ☀️ SunSafe Check </Link></li>
+                                <li><Link to={"/sunsafe/mainapp"}>🧴⛅️ Resources</Link></li>
+                                <li><Link to={"/sunsafe/teams"}> 👭👫 Meet the Team</Link></li>
                             </li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">SunSafe</a>
+                    <Link className="btn btn-ghost text-xl" to={"/sunsafe/"}>☀️ SunSafe</Link>
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><a>🧴⛅️ About</a></li>
-                        <li><a> 👭👫 Meet the Team</a></li>
+                        <li><Link to={"/sunsafe/app"}> ☀️ SunSafe Check </Link></li>
+                        <li><Link to={"/sunsafe/#resources"}>🧴⛅️ Resources</Link></li>
+                        <li><Link to={"/sunsafe/teams"}> 👭👫 Meet the Team</Link></li>
                     </ul>
                 </div>
 
